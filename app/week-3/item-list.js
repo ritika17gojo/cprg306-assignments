@@ -73,21 +73,21 @@ const item1 = {
     category: "household",
   };
 
-  const ItemList = () {
+  const ItemList = () =>{
     return(
     <ul className="p-4">
-    <Item name={Milk} quantity={1} category={dairy} />
-    <Item name={bread} quantity={2} category={bakery} />
-    <Item name={DozenEggs} quantity={3} category={dairy} />
-    <Item name={bananas} quantity={6} category={produce} />
-    <Item name={broccoli} quantity={3} category={produce} />
-    <Item name={ChickenBreasts1Kg} quantity={1} category={meat} />
-    <Item name={PastaSauce} quantity={3} category={cannedGoods} />
-    <Item name={Spaghetti454g} quantity={2} category={DryGoods} />
-    <Item name={ToiletPaper12Pack} quantity={1} category={household} />
-    <Item name={PaperTowels6pack} quantity={1} category={household} />
-    <Item name={dishSoap} quantity={1} category={household} />
-    <Item name={handSoap} quantity={4} category={household} />
+    <Item name={item1.name} quantity={item1.quantity} category={item1.category}/>
+    <Item name={item2.name} quantity={item2.quantity} category={item2.category}/>
+    <Item name={item3.name} quantity={item3.quantity} category={item3.category}/>
+    <Item name={item4.name} quantity={item4.quantity} category={item4.category}/>
+    <Item name={item5.name} quantity={item5.quantity} category={item5.category}/>
+    <Item name={item6.name} quantity={item6.quantity} category={item6.category}/>
+    <Item name={item7.name} quantity={item7.quantity} category={item7.category}/>
+    <Item name={item8.name} quantity={item8.quantity} category={item8.category}/>
+    <Item name={item9.name} quantity={item9.quantity} category={item9.category}/>
+    <Item name={item10.name} quantity={item10.quantity} category={item10.category}/>
+    <Item name={item11.name} quantity={item11.quantity} category={item11.category}/>
+    <Item name={item12.name} quantity={item12.quantity} category={item12.category}/>
     </ul>
     );
   };

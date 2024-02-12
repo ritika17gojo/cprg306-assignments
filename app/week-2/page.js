@@ -6,7 +6,7 @@ export default function Page() {
     );
 }
 
-import StudentInfo from '.../week-2/student-info';
+import StudentInfo from 'app\week-2\student-info.js';
 export default function Week2Page() {
     return (
         <div>
