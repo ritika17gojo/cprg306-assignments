@@ -1,6 +1,8 @@
+"use client";
+
 import React, {useState} from 'react';
 
-const NewItem =() => {
+export default function NewItem() {
     const [name, setName]= useState("");
     const [quantity, setQuantity] = useState(1);
     const [category, setCategory]= useState('produce');
@@ -12,7 +14,7 @@ const NewItem =() => {
         console.log(item);
 
         alert('Name: ${name}\nQuantity: ${quantity}\nCategory: ${category}');
-
+    alert
         setName('');
         setQuantity(1);
         setCategory('produce');
@@ -20,7 +22,7 @@ const NewItem =() => {
 
     return (
         <div className="container mx-auto">
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-8">
+            <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto py-8 px-4">
                 {/*Name Field*/}
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
@@ -60,7 +62,7 @@ const NewItem =() => {
                 </div>
 
                 {/*Submit Button*/}
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-offset-2 focus:ring-indigo-500">
                     Submit
                 </button>
             </form>
@@ -68,4 +70,3 @@ const NewItem =() => {
     );
 };
 
-export default NewItem;
