@@ -1,59 +1,87 @@
-"use client";
-import React, {useState} from 'react';
-import Link from 'next/link';
+"use client"
+import React, {useState, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
+import {useUserAuth} from './useUserAuth';
+import {initializeApp} from 'firebase/app';
+import {getAuth} from 'firebase/auth';
 import ItemList from './item-list';
-import NewItem from './new-item';
 import MealIdeas from './meal-ideas';
-import itemsData from './items.json';
+import Items from './items';
+import {getItems, addItem} from './shopping-list-services.js';
 
-const Page = () => {
-    const [items,setItems] = useState(itemsData);
+const firebaseConfig = {
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  };
+
+  const firebaseApp = initializeApp(firebaseConfig);
+  const auth= getAuth(firebaseApp);
+
+  const Page = () => {
+    const [selectedItemName, setSelectedItemName] = useState('');
+    const [items, setItems] = useState(Items);
+    const user = useUserAuth();
+    const history = useHistory();
 
     useEffect(() => {
         if (!user) {
-            Router.push('/week-8/page');
+            history.push('/');
         }
-    }, [user, router]);
+    }, [user, history]);
 
-    if (!user) {
-        return <div>Loading...</div>;
+    useEffect(() => {
+
+    }, []);
+
+    const handleItemSelect = (itemName) => {
+        console.log('Selected item:', itemName);
+
+        const cleanedItemName = itemName.name.replace(/ingredients/g, '').split(",")[0];
+        setSelectedItemName(cleanedItemName);
+    };
+
+    const handleSortByName = () => {
+        const sortedItemsByName = [...items].sort((a,b) => a.category.localeCompare(b.category));
+        setItems(sortedItemsByName);
+    };
+
+    const handleSortByCategory = () => {
+        const sortedItemsByCategory = [...items].sort((a,b) => a.category.localCompare(b.category));
+        setItems(sortedItemsByCategory);
+    };
+
+    const handleAddItem= async (item) => {
+        const newItem = await(user.uid, item);
+        setItems([...items, newItem]);
     }
-
-    const handleAddItem = (newItem) => {
-        setItems(currentItems => [...currentItems, newItem]);
-    };
-
-    const handleItemSelect = (name) => {
-        const cleanedName = name.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|�[�-�]|�[�-�]|[\u2011-\u26FF]|�[�-�])/g, '').trim();
-        setSelectedItemName(cleanedName);
-    };
-
+    
     return (
-        <main className="min-h-screen bg-gradient-to-br from-gray-600 via-blue-500 to-gray-500 p-8 ">
-            <div className="flex justify-end mb-8">
-                <Link className="relative inline-flex items-center justify-center px-6 py-3 font-semibold rounded-full overflow-hidden group bg-gradient-to-br from-blue-500 to gray-500 text-white shadow-lg transition-all duration-300 ease-out hover:from-blue-500 hover:to-pink-500 hover:scale-110" href="/">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 group- hover:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLineCap="round" strokeLineJoin="round" strokewidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-                    </svg>
-                    Back to Home
-                    <span className="absolute inset-0 bg-white bg-opacity-20 group-hover:bg-opacity-0 transition-opacity duration-300"></span>
-                </Link>
+        <div className="flex">
+            <div className="container mx-auto p-4">
+                <h1 className="text-3xl font-bold mb-4">Shopping List</h1>
+                <div className="mb-4">
+                    <button onClick={handleSortByName} className="bg-gray-700 text-white px-4 py-2 mr-2"> Sort by Name</button>
+                    <button onClick={handleSortByCategory} className="bg-gray-700 text-white px-4 py-2">Sort ByCategory</button>
+                </div>
+                <ItemList onItemSelect={handleItemSelect} items={items} />
             </div>
-            <div className="flex flex-col lg:flex-row items-start justify-start ml- gap-1">
-
-                <div className="w-full lg:w-1/4 pl-5 ml-9">
-                    <NewItem onAddItem={handleAddItem} />
-                </div>
-
-                <div className="w-full mr-9 lg:w-3/4">
-                    <ItemList items={items} />
-                </div>
-                <div className="flex flex-col w-full lg:w-1/3">
-                {selectedItemName && <MealIdeas ingredient={selectedItemName} />}
-                </div>
+            <div className="container mx-auto p-4">
+                <MealIdeas ingredient={selectedItemName} />
             </div>
-        </main>
+        </div>
     );
-};
+  };
 
-export default Page;
+  async function loadItems() {
+    const items = await getItems(user.uid);
+    setItems(items);
+
+    useEffect(() => {
+        loadItems();
+    }, [user.uid]);
+  }
+  export default Page;

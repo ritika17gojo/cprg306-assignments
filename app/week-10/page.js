@@ -1,54 +1,40 @@
-"use client";
+"use client"
 
 import React from 'react';
-import Link from 'next/link';
-import {useUserAuth} from './utils/auth-context';
-const LandingPage = () => {
+import {useUserAuth} from './_utils/auth-context';
+
+function LandingPage() {
     const {user, gitHubSignIn, firebaseSignOut} = useUserAuth();
-
-    const handleLogin = async () => {
-        try {
-            await gitHubSignIn();
-        } catch (error) {
-            console.error("Error during GitHub sign in:", );
-        }
+    const handleLogin= async()=> {
+        await gitHubSignIn();
+    };
+    
+    const handleLogout = async() => {
+        await firebaseSignOut();
     };
 
-    const handleLogout = async () =>{
-        try {
-            await firebaseSignOut();
-        } catch (error) {
-            console.error("Error during sign out:, error")
-    }
-    };
-
-    return (
-        <div className="flex-col items-center justify-center min-h-screen bg-gray-100">
-            { user ? (
-                <div className="text-center">
-                    <p className="text-black mb-4 text-xl font-medium">
-                        Welcome, {user.displayName} ({user.email})
-                    </p>
-                    <button
-                    onClick={handleLogout}
-                    className="px-6 py-2 rounded bg-red-500 text-white hover:bg-red-700 transition-colors duration-200"
-                    >
-                        Log out
-                    </button>
-                    <div className="mt-4">
-                        <a href="/week-8/shopping-list" className="inline-block px-6 py-2 rounded bg-blue-500 text-white hover: bg-blue-700 transition-colors duration-200">
-                            Go to Shopping List
-                        </a>
-                    </div>
-                </div>
-            ): (
-                <button
-                onClick={handleLogin}
-                className="px-6 py-2 rounded bg-green-500 text-white hover:bg-green-700 transition-colors duration-200"
-                >
-                    Login with GitHub
-                </button>
-            )}
+    return(
+        <div className="flex justify-center items-center bg-gray-900 text-white">
+            <div className="text-center">
+                {user ? (
+                    <div>
+                        <p className="mb-4 text-lg">Welcome, {user.displayName} ({user.email})</p>
+                        <button onClick={handleLogout} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                            Logout
+                        </button>
+                        <div className="mt-4">
+                            <a href="/week-8/shopping-list" className="text-pink-400 hover:text-pink-600">Go to Shopping List</a>
+                        </div>  
+                    </div>      
+                ) : (
+                    <div>
+                        <button onClick={handleLogin} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                            Login with GitHub
+                        </button>
+                    </div>    
+                )}
+            </div>
         </div>
     );
-};
+}
+export default LandingPage;
