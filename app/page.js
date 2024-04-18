@@ -20,6 +20,19 @@ export default function Home() {
           <Link href="/week-5" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
             Assignments for Week 5
           </Link>
+          <Link href="/week-6" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
+            Assignments for Week 6
+          </Link>
+          <Link href="/week-7" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
+            Assignments for Week 7
+          </Link>
+          <Link href="/week-8" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
+            Assignments for Week 8
+          </Link>
+          <Link href="/week-10" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
+            Assignments for Week 10
+          </Link>
+
         </div>
       </div>
     </main>
