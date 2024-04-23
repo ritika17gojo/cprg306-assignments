@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Item = ({name, quantity, category, onSelect}) => {
+const Item = ({ name, quantity, category, onSelect }) => {
     const handleClick = () => {
-        onSelect({name});
+        onSelect({ name });
     };
 
     return (

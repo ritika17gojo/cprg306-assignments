@@ -6,16 +6,16 @@ import MealIdeas from './meal-ideas';
 import itemsData from './items.json';
 
 const Page = () => {
-    const [items, setItems] = useState(itemsData); 
-    const [selectedItemName, setSelectedItemName] = useState(""); 
+    const [items, setItems] = useState(itemsData);
+    const [selectedItemName, setSelectedItemName] = useState("");
 
     const handleAddItem = (newItem) => {
-        setItems([...items, newItem]); 
+        setItems([...items, newItem]);
     };
 
     const handleItemSelect = (itemName) => {
         const cleanedName = itemName.replace(/,.*|\s\w*$/, '').replace(/[^\w\s]/gi, '');
-        setSelectedItemName(cleanedName); 
+        setSelectedItemName(cleanedName);
     };
 
     return (
@@ -25,11 +25,11 @@ const Page = () => {
             </h1>
             <div className="flex w-full max-w-6xl justify-between items-start">
                 <div className="bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-6 flex-1 mr-4">
-                    <NewItem onAddItem={handleAddItem} /> 
-                    <ItemList items={items} onItemSelect={handleItemSelect} /> 
+                    <NewItem onAddItem={handleAddItem} />
+                    <ItemList items={items} onItemSelect={handleItemSelect} />
                 </div>
                 <div className="bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-6 flex-1">
-                    <MealIdeas ingredient={selectedItemName} /> 
+                    <MealIdeas ingredient={selectedItemName} />
                 </div>
             </div>
         </main>

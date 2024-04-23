@@ -1,5 +1,5 @@
 import React from 'react';
-import ItemList from  './item-list';
+import ItemList from './item-list';
 
 const Page = () => {
     return (
@@ -8,7 +8,7 @@ const Page = () => {
                 Shopping List
             </h1>
             <div className="w-full max-w-3xl bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-6">
-                <ItemList/>
+                <ItemList />
             </div>
         </main>
     );
