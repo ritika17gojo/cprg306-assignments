@@ -10,7 +10,7 @@ function NewItem() {
     event.preventDefault();
     const item = { name, quantity, category };
     console.log(item); 
-    alert(`Item: ${name}, Quantity: ${quantity}, Category: ${category}`);
+    alert(Item: ${name}, Quantity: ${quantity}, Category: ${category});
     resetForm();
   }
 
@@ -26,22 +26,41 @@ function NewItem() {
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
           Name
         </label>
-        <input id="name" type="text" value={name} onChange={e => setName(e.target.value)} 
-               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
+        <input 
+          id="name" 
+          type="text" 
+          value={name} 
+          onChange={e => setName(e.target.value)} 
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          required 
+        />
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="quantity">
           Quantity
         </label>
-        <input id="quantity" type="number" value={quantity} min="1" max="99" onChange={e => setQuantity(Number(e.target.value))}
-               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" required />
+        <input 
+          id="quantity" 
+          type="number" 
+          value={quantity} 
+          min="1" 
+          max="99" 
+          onChange={e => setQuantity(Number(e.target.value))}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+          required 
+        />
       </div>
       <div className="mb-6">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
           Category
         </label>
-        <select id="category" value={category} onChange={e => setCategory(e.target.value)}
-                className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+        <select 
+          id="category" 
+          value={category} 
+          onChange={e => setCategory(e.target.value)}
+          className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+          required
+        >
           <option value="produce">Produce</option>
           <option value="dairy">Dairy</option>
           <option value="bakery">Bakery</option>
