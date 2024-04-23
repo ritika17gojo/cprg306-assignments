@@ -9,19 +9,19 @@ function NewItem({ onAddItem }) {
   function handleSubmit(event) {
     event.preventDefault();
     const item = { 
-      id: Math.random().toString(36).substring(2, 9), 
+      id: Math.random().toString(36).substring(2, 9), // Unique ID for each item
       name, 
       quantity, 
       category 
     };
-    onAddItem(item);  
-    setName("");
-    setQuantity(1);
-    setCategory("produce");
+    onAddItem(item);  // Call the onAddItem function passed from parent component
+    setName(""); // Reset name field
+    setQuantity(1); // Reset quantity field
+    setCategory("produce"); // Reset category to default
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto my-10 p-4 shadow-lg rounded-lg">
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto my-10 p-4 shadow-lg rounded-lg bg-white">
       <div className="mb-4">
         <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
           Name
@@ -74,4 +74,11 @@ function NewItem({ onAddItem }) {
           <option value="other">Other</option>
         </select>
       </div>
-      <button type="submit"
+      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Add Item
+      </button>
+    </form>
+  );
+}
+
+export default NewItem;

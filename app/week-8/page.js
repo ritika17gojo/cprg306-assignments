@@ -1,19 +1,20 @@
 "use client"
 
 import React from 'react';
-import {useUserAuth} from './_utils/auth-context';
+import { useUserAuth } from './_utils/auth-context';
 
 function LandingPage() {
-    const {user, gitHubSignIn, firebaseSignOut} = useUserAuth();
-    const handleLogin= async()=> {
+    const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+
+    const handleLogin = async () => {
         await gitHubSignIn();
     };
-    
-    const handleLogout = async() => {
+
+    const handleLogout = async () => {
         await firebaseSignOut();
     };
 
-    return(
+    return (
         <div className="flex justify-center items-center bg-gray-900 text-white">
             <div className="text-center">
                 {user ? (

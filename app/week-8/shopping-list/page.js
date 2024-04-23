@@ -1,72 +1,46 @@
-"use client"
-import React, {useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
-import {useUserAuth} from './useUserAuth';
-import {initializeApp} from 'firebase/app';
-import {getAuth} from 'firebase/auth';
+"use client";
+import React, { useState } from 'react';
 import ItemList from './item-list';
-import MealIdeas from './meal-ideas';
-import Items from './items';
+import NewItem from './new-item';
+import MealIdeas from './meal-ideas'; 
+import itemsData from './items.json';
+import { useUserAuth } from '../_utils/auth-context'; 
 
-const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  };
+const Page = () => {
+    const [items, setItems] = useState(itemsData);
+    const [selectedItemName, setSelectedItemName] = useState("");
+    const { user } = useUserAuth(); 
 
-  const firebaseApp = initializeApp(firebaseConfig);
-  const auth= getAuth(firebaseApp);
-
-  const Page = () => {
-    const [selectedItemName, setSelectedItemName] = useState('');
-    const [items, setItems] = useState(Items);
-    const user = useUserAuth();
-    const history = useHistory();
-
-    useEffect(() => {
-        if (!user) {
-            history.push('/');
-        }
-    }, [user, history]);
-
-    useEffect(() => {
-
-    }, []);
+    const handleAddItem = (newItem) => {
+        setItems([...items, newItem]);
+    };
 
     const handleItemSelect = (itemName) => {
-        console.log('Selected item:', itemName);
-
-        const cleanedItemName = itemName.name.replace(/ingredients/g, '').split(",")[0];
-        setSelectedItemName(cleanedItemName);
+        const cleanedName = itemName.replace(/,.*|\s\w*$/, '').replace(/[^\w\s]/gi, '');
+        setSelectedItemName(cleanedName);
     };
 
-    const handleSortByName = () => {
-        const sortedItemsByName = [...items].sort((a,b) => a.category.localeCompare(b.category));
-        setItems(sortedItemsByName);
-    };
+    if (!user) {
+        
+        return <div>Please log in to view this page.</div>;
+    }
 
-    const handleSortByCategory = () => {
-        const sortedItemsByCategory = [...items].sort((a,b) => a.category.localCompare(b.category));
-        setItems(sortedItemsByCategory);
-    };
-    
     return (
-        <div className="flex">
-            <div className="container mx-auto p-4">
-                <h1 className="text-3xl font-bold mb-4">Shopping List</h1>
-                <div className="mb-4">
-                    <button onClick={handleSortByName} className="bg-gray-700 text-white px-4 py-2 mr-2"> Sort by Name</button>
-                    <button onClick={handleSortByCategory} className="bg-gray-700 text-white px-4 py-2">Sort ByCategory</button>
+        <main className="min-h-screen p-8 flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-extrabold mb-6">
+                Shopping List
+            </h1>
+            <div className="flex w-full max-w-6xl justify-between items-start">
+                <div className="bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-6 flex-1 mr-4">
+                    <NewItem onAddItem={handleAddItem} />
+                    <ItemList items={items} onItemSelect={handleItemSelect} />
                 </div>
-                <ItemList onItemSelect={handleItemSelect} items={items} />
+                <div className="bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-6 flex-1">
+                    <MealIdeas ingredient={selectedItemName} />
+                </div>
             </div>
-            <div className="container mx-auto p-4">
-                <MealIdeas ingredient={selectedItemName} />
-            </div>
-        </div>
+        </main>
     );
-  };
-  export default Page;
+};
+
+export default Page;

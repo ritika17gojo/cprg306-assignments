@@ -10,7 +10,7 @@ function NewItem() {
     event.preventDefault();
     const item = { name, quantity, category };
     console.log(item); 
-    alert(Item: ${name}, Quantity: ${quantity}, Category: ${category});
+    alert(`Item: ${name}, Quantity: ${quantity}, Category: ${category}`);
     resetForm();
   }
 
