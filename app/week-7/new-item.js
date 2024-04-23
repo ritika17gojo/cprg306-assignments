@@ -8,6 +8,7 @@ function NewItem({ onAddItem }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    // Ensure ID generation and data structure aligns with the rest of the app
     const item = { 
       id: Math.random().toString(36).substring(2, 9), 
       name, 
@@ -15,6 +16,7 @@ function NewItem({ onAddItem }) {
       category 
     };
     onAddItem(item);  
+    // Reset fields after submitting
     setName("");
     setQuantity(1);
     setCategory("produce");
