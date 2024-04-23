@@ -1,40 +1,21 @@
-// Home.js
 import Link from 'next/link';
 
-export default function Home() {
+function HomePage() {
   return (
-    <main className="min-h-screen  flex flex-col items-center justify-center">
-      <div className="max-w-2xl w-full bg-white/90 backdrop-blur-lg  p-8 text-center ">
-        <h1 className="text-4xl font-bold">CPRG 306: Web Development 2</h1>
-        <p className="text-xl font-light">Assignments</p>
-        <div className="space-y-4">
-          <Link href="/week-2" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
-            Assignments for Week 2
-          </Link>
-          <Link href="/week-3" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
-            Assignments for Week 3
-          </Link>
-          <Link href="/week-4" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
-            Assignments for Week 4
-          </Link>
-          <Link href="/week-5" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
-            Assignments for Week 5
-          </Link>
-          <Link href="/week-6" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
-            Assignments for Week 6
-          </Link>
-          <Link href="/week-7" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
-            Assignments for Week 7
-          </Link>
-          <Link href="/week-8" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
-            Assignments for Week 8
-          </Link>
-          <Link href="/week-10" className="block py-2 px-6  text-black font-bold text-lg leading-tight  transition  duration-300 transform hover:-translate-y-1">
-            Assignments for Week 10
-          </Link>
-
-        </div>
-      </div>
-    </main>
+    <div className="container mx-auto px-4">
+      <h1 className="text-xl font-bold text-center my-6">Welcome to the Shopping List</h1>
+      <ul>
+        <li><Link href="/week-2"><a>Week 2 Assignment</a></Link></li>
+        <li><Link href="/week-3"><a>Week 3 Assignment</a></Link></li>
+        <li><Link href="/week-4"><a>Week 4 Assignment</a></Link></li>
+        <li><Link href="/week-5"><a>Week 5 Assignment</a></Link></li>
+        <li><Link href="/week-6"><a>Week 6 Assignment</a></Link></li>
+        <li><Link href="/week-7"><a>Week 7 Assignment</a></Link></li>
+        <li><Link href="/week-8"><a>Week 8 Assignment</a></Link></li>
+        <li><Link href="/week-10"><a>Week 19 Assignment</a></Link></li>
+      </ul>
+    </div>
   );
 }
+
+export default HomePage;

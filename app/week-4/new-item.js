@@ -11,6 +11,10 @@ function NewItem() {
     const item = { name, quantity, category };
     console.log(item); 
     alert(`Item: ${name}, Quantity: ${quantity}, Category: ${category}`);
+    resetForm();
+  }
+
+  function resetForm() {
     setName("");
     setQuantity(1);
     setCategory("produce");
